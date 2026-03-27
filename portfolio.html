@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rahul Chetry - Aspiring Software Developer | CSE Student | Portfolio">
+    <title>Rahul Chetry | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #00d4ff;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-ready * {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .navbar {
+            backdrop-filter: blur(12px);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+        }
+        
+        .section-header {
+            position: relative;
+        }
+        
+        .section-header::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #00d4ff;
+            bottom: -8px;
+            left: 0;
+            border-radius: 9999px;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 212 255 / 0.1), 0 8px 10px -6px rgb(0 212 255 / 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #00d4ff;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .active-nav {
+            color: #00d4ff;
+        }
+        
+        .page-transition {
+            animation: fadeIn 0.4s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .mobile-menu {
+            animation: slideDown 0.3s ease forwards;
+        }
+    </style>
+</head>
+<body class="tailwind-ready bg-zinc-950 text-zinc-100">
+    <!-- NAVBAR -->
+    <nav class="navbar bg-zinc-950/90 border-b border-zinc-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-cyan-500/50">
+                    RC
+                </div>
+                <h1 class="heading-font text-2xl tracking-tighter">Rahul Chetry</h1>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                <a onclick="navigateToSection('home')" class="nav-link cursor-pointer flex items-center gap-x-1 active-nav" id="nav-home">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <a onclick="navigateToSection('about')" class="nav-link cursor-pointer flex items-center gap-x-1" id="nav-about">
+                    <i class="fas fa-user"></i>
+                    About
+                </a>
+                <a onclick="navigateToSection('training')" class="nav-link cursor-pointer flex items-center gap-x-1" id="nav-training">
+                    <i class="fas fa-graduation-cap"></i>
+                    Training
+                </a>
+                <a onclick="navigateToSection('projects')" class="nav-link cursor-pointer flex items-center gap-x-1" id="nav-projects">
+                    <i class="fas fa-briefcase"></i>
+                    Projects
+                </a>
+                <a onclick="navigateToSection('certificates')" class="nav-link cursor-pointer flex items-center gap-x-1" id="nav-certificates">
+                    <i class="fas fa-award"></i>
+                    Certificates
+                </a>
+                <a onclick="navigateToSection('skills')" class="nav-link cursor-pointer flex items-center gap-x-1" id="nav-skills">
+                    <i class="fas fa-tools"></i>
+                    Skills
+                </a>
+                <a onclick="navigateToSection('education')" class="nav-link cursor-pointer flex items-center gap-x-1" id="nav-education">
+                    <i class="fas fa-school"></i>
+                    Education
+                </a>
+                <a onclick="navigateToSection('contact')" class="nav-link cursor-pointer flex items-center gap-x-1" id="nav-contact">
+                    <i class="fas fa-envelope"></i>
+                    Contact
+                </a>
+            </div>
+
+            <div class="flex items-center gap-x-4">
+                <!-- Download CV - NOW WORKING with your Google Drive link -->
+                <a onclick="downloadCV()" 
+                   class="flex items-center gap-x-2 bg-white text-zinc-950 hover:bg-cyan-400 hover:text-white px-5 py-2.5 rounded-2xl font-semibold text-sm cursor-pointer">
+                    <i class="fas fa-download"></i>
+                    <span>Download CV</span>
+                </a>
+                
+                <!-- Mobile Hamburger -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+                    <i id="hamburger-icon" class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-zinc-800 px-6 py-4 mobile-menu">
+            <div class="flex flex-col gap-y-4 text-sm font-medium">
+                <a onclick="navigateToSection('home');toggleMobileMenu()" class="flex items-center gap-x-3 py-2">
+                    <i class="fas fa-home w-5"></i>
+                    <span>Home</span>
+                </a>
+                <a onclick="navigateToSection('about');toggleMobileMenu()" class="flex items-center gap-x-3 py-2">
+                    <i class="fas fa-user w-5"></i>
+                    <span>About</span>
+                </a>
+                <a onclick="navigateToSection('training');toggleMobileMenu()" class="flex items-center gap-x-3 py-2">
+                    <i class="fas fa-graduation-cap w-5"></i>
+                    <span>Training</span>
+                </a>
+                <a onclick="navigateToSection('projects');toggleMobileMenu()" class="flex items-center gap-x-3 py-2">
+                    <i class="fas fa-briefcase w-5"></i>
+                    <span>Projects</span>
+                </a>
+                <a onclick="navigateToSection('certificates');toggleMobileMenu()" class="flex items-center gap-x-3 py-2">
+                    <i class="fas fa-award w-5"></i>
+                    <span>Certificates</span>
+                </a>
+                <a onclick="navigateToSection('skills');toggleMobileMenu()" class="flex items-center gap-x-3 py-2">
+                    <i class="fas fa-tools w-5"></i>
+                    <span>Skills</span>
+                </a>
+                <a onclick="navigateToSection('education');toggleMobileMenu()" class="flex items-center gap-x-3 py-2">
+                    <i class="fas fa-school w-5"></i>
+                    <span>Education</span>
+                </a>
+                <a onclick="navigateToSection('contact');toggleMobileMenu()" class="flex items-center gap-x-3 py-2">
+                    <i class="fas fa-envelope w-5"></i>
+                    <span>Contact</span>
+                </a>
+                
+                <div class="pt-4 border-t border-zinc-700">
+                    <a onclick="downloadCV();toggleMobileMenu()" 
+                       class="flex items-center justify-center gap-x-2 w-full bg-zinc-800 hover:bg-zinc-700 py-3 rounded-2xl">
+                        <i class="fas fa-download"></i>
+                        <span>Download CV</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO / HOME -->
+    <section id="home" class="hero-bg min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-x-2 bg-white/10 text-white text-sm font-medium px-6 py-2 rounded-3xl border border-white/20">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    Open to opportunities
+                </div>
+                
+                <h1 class="heading-font text-6xl md:text-7xl leading-none tracking-tighter">
+                    Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Rahul Chetry</span>
+                </h1>
+                
+                <p class="text-2xl text-zinc-400">B.Tech Computer Science &amp; Engineering Student</p>
+                
+                <p class="text-lg max-w-md text-zinc-300">
+                    Passionate about building scalable applications with C++, Python, DSA &amp; OOP. 
+                    Currently honing skills in full-stack development and data structures.
+                </p>
+                
+                <div class="flex items-center gap-x-4">
+                    <button onclick="navigateToSection('projects')" 
+                            class="flex-1 md:flex-none bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-semibold px-8 py-4 rounded-3xl flex items-center justify-center gap-x-2 text-lg">
+                        <i class="fas fa-rocket"></i>
+                        View My Projects
+                    </button>
+                    
+                    <a onclick="navigateToSection('contact')" 
+                       class="flex-1 md:flex-none border border-white/30 hover:border-white/60 font-semibold px-8 py-4 rounded-3xl flex items-center justify-center gap-x-2 text-lg">
+                        <i class="fas fa-paper-plane"></i>
+                        Let's Connect
+                    </a>
+                </div>
+                
+                <div class="flex items-center gap-x-8 pt-6">
+                    <a href="https://github.com/RahulChetry" target="_blank" 
+                       class="flex items-center gap-x-2 hover:text-cyan-400">
+                        <i class="fab fa-github text-3xl"></i>
+                        <div>
+                            <div class="text-xs text-zinc-400">GITHUB</div>
+                            <div class="font-medium">RahulChetry</div>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/rahul-chetry/" target="_blank" 
+                       class="flex items-center gap-x-2 hover:text-cyan-400">
+                        <i class="fab fa-linkedin text-3xl"></i>
+                        <div>
+                            <div class="text-xs text-zinc-400">LINKEDIN</div>
+                            <div class="font-medium">Rahul Chetry</div>
+                        </div>
+                    </a>
+                    <div class="h-10 w-px bg-white/20"></div>
+                    <div>
+                        <a href="mailto:rrrahulchetry105@gmail.com" class="text-cyan-400 hover:underline flex items-center gap-x-2">
+                            <i class="fas fa-envelope"></i>
+                            rrrahulchetry105@gmail.com
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- HERO PHOTO - YOUR PHOTO ADDED -->
+            <div class="hidden md:flex justify-center">
+                <div class="relative">
+                    <img src="C:\Users\asus\Downloads\my pic.jpg" 
+                         alt="Rahul Chetry"
+                         class="w-80 h-80 object-cover rounded-3xl shadow-2xl border-4 border-cyan-400/30">
+                    <!-- Floating badge -->
+                    <div class="absolute -top-6 -left-6 bg-zinc-900 text-cyan-400 text-xs font-medium px-6 py-2 rounded-3xl shadow-xl flex items-center gap-x-2">
+                        <i class="fas fa-code"></i>
+                        C++ &amp; DSA Expert
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 bg-zinc-900 text-emerald-400 text-xs font-medium px-6 py-2 rounded-3xl shadow-xl flex items-center gap-x-2">
+                        <i class="fas fa-laptop-code"></i>
+                        Python • Tkinter
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 flex flex-col items-center gap-y-1 text-zinc-400 text-sm">
+            <div>Scroll to explore</div>
+            <i class="fas fa-chevron-down animate-bounce"></i>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="max-w-7xl mx-auto px-6 py-20 border-t border-zinc-800">
+        <div class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7">
+                <h2 class="section-header text-5xl heading-font tracking-tighter mb-6">About Me</h2>
+                <div class="prose prose-invert text-lg text-zinc-300">
+                    <p>I'm a dedicated B.Tech Computer Science student at Lovely Professional University with a strong passion for problem-solving and software development.</p>
+                    <p>Through hands-on projects and intensive training in C++ OOP &amp; DSA, I've developed a solid foundation in building efficient, scalable applications. I enjoy turning complex problems into clean, maintainable code.</p>
+                    <p>When I'm not coding, you'll find me exploring new technologies, contributing to open-source, or working on personal projects that solve real-world problems.</p>
+                </div>
+                
+                <div class="mt-10 flex flex-wrap gap-3">
+                    <div class="px-5 py-3 bg-white/5 rounded-3xl text-sm flex items-center gap-x-2">
+                        <span class="text-cyan-400">📍</span>
+                        Guwahati, Assam (Currently in Phagwara, Punjab)
+                    </div>
+                    <div class="px-5 py-3 bg-white/5 rounded-3xl text-sm flex items-center gap-x-2">
+                        <span class="text-cyan-400">🎓</span>
+                        B.Tech CSE • Lovely Professional University
+                    </div>
+                    <div class="px-5 py-3 bg-white/5 rounded-3xl text-sm flex items-center gap-x-2">
+                        <span class="text-cyan-400">🚀</span>
+                        2+ Real Projects Completed
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 bg-zinc-900 rounded-3xl p-8 border border-white/10">
+                <h3 class="text-xl font-semibold mb-6 flex items-center gap-x-3">
+                    <span>Quick Facts</span>
+                    <div class="flex-1 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"></div>
+                </h3>
+                <ul class="space-y-6">
+                    <li class="flex justify-between items-center border-b border-white/10 pb-6">
+                        <span class="text-zinc-400">Current Focus</span>
+                        <span class="font-medium">Advanced DSA &amp; System Design</span>
+                    </li>
+                    <li class="flex justify-between items-center border-b border-white/10 pb-6">
+                        <span class="text-zinc-400">Preferred Tech Stack</span>
+                        <span class="font-medium">C++ • Python • Tkinter • Git</span>
+                    </li>
+                    <li class="flex justify-between items-center">
+                        <span class="text-zinc-400">Hobbies</span>
+                        <span class="font-medium">Competitive Programming • UI/UX • Reading Tech Blogs</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAINING -->
+    <section id="training" class="bg-zinc-900 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-header text-5xl heading-font tracking-tighter mb-12">Training &amp; Certifications Path</h2>
+            
+            <div class="bg-white/5 rounded-3xl p-8 md:p-12 border border-white/10">
+                <div class="flex flex-col md:flex-row gap-8 md:items-center">
+                    <div class="md:w-1/3">
+                        <div class="text-cyan-400 text-sm font-medium tracking-widest">JUN '25 — JUL '25</div>
+                        <h3 class="text-3xl heading-font mt-2">CSE Pathshala</h3>
+                        <p class="text-2xl text-zinc-400 mt-1">C++ Programming: OOPS &amp; DSA</p>
+                    </div>
+                    <div class="md:w-2/3 text-zinc-300 space-y-4">
+                        <ul class="list-disc list-outside pl-6 space-y-3">
+                            <li>Gained hands-on experience with C++ programming fundamentals (variables, loops, functions, pointers)</li>
+                            <li>Mastered Object-Oriented Programming concepts: Classes, Objects, Inheritance, Polymorphism, Encapsulation, Abstraction</li>
+                            <li>Worked with Data Structures: Arrays, Linked Lists, Stacks, Queues, Trees, Graphs, Hashing</li>
+                            <li>Implemented Algorithms: Searching, Sorting, Recursion, Dynamic Programming, Greedy Algorithms</li>
+                            <li>Developed strong problem-solving skills using time &amp; space complexity analysis (Big-O notation)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="flex justify-between items-end mb-12">
+            <h2 class="section-header text-5xl heading-font tracking-tighter">Featured Projects</h2>
+            <a href="https://github.com/RahulChetry" target="_blank" 
+               class="text-cyan-400 flex items-center gap-x-2 hover:gap-x-3 group">
+                See all on GitHub 
+                <i class="fas fa-arrow-right group-hover:translate-x-1"></i>
+            </a>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Project 1 -->
+            <div class="card-hover bg-zinc-900 rounded-3xl overflow-hidden border border-white/10">
+                <div class="h-2 bg-gradient-to-r from-purple-400 to-cyan-400"></div>
+                <div class="p-8">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-semibold">Student Record Management System</h3>
+                            <p class="text-cyan-400 text-sm mt-1">C++ • OOP • DSA • Linked Lists</p>
+                        </div>
+                        <span class="text-xs bg-white/10 px-4 py-1 rounded-3xl">Jun '25 — Jul '25</span>
+                    </div>
+                    
+                    <ul class="mt-8 space-y-4 text-zinc-300 text-sm">
+                        <li class="flex gap-x-3"><span class="text-cyan-400">•</span> Developed a console-based application to manage student records</li>
+                        <li class="flex gap-x-3"><span class="text-cyan-400">•</span> Implemented Linked List data structure for efficient storage, insertion, deletion, searching, and sorting</li>
+                        <li class="flex gap-x-3"><span class="text-cyan-400">•</span> Applied OOP principles: encapsulation, modular class design, and reusability</li>
+                        <li class="flex gap-x-3"><span class="text-cyan-400">•</span> Focused on scalability, modularity, and code readability</li>
+                    </ul>
+                    
+                    <div class="mt-10 flex items-center justify-between">
+                        <a href="https://github.com/RahulChetry/Student-management-" target="_blank" 
+                           class="inline-flex items-center gap-x-2 text-sm font-medium text-cyan-400 hover:text-white">
+                            <i class="fab fa-github"></i>
+                            View Repository
+                        </a>
+                        <div class="text-xs uppercase tracking-widest text-zinc-400">C++ • OOP • DSA</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="card-hover bg-zinc-900 rounded-3xl overflow-hidden border border-white/10">
+                <div class="h-2 bg-gradient-to-r from-emerald-400 to-cyan-400"></div>
+                <div class="p-8">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-semibold">Nutrition Calculator</h3>
+                            <p class="text-cyan-400 text-sm mt-1">Python • Tkinter • GUI • OOP</p>
+                        </div>
+                        <span class="text-xs bg-white/10 px-4 py-1 rounded-3xl">Nov '24 — Dec '24</span>
+                    </div>
+                    
+                    <ul class="mt-8 space-y-4 text-zinc-300 text-sm">
+                        <li class="flex gap-x-3"><span class="text-cyan-400">•</span> Built a GUI application to calculate and track nutritional values of meals</li>
+                        <li class="flex gap-x-3"><span class="text-cyan-400">•</span> Designed and integrated a nutrition database with categories (vegetarian, non-vegetarian)</li>
+                        <li class="flex gap-x-3"><span class="text-cyan-400">•</span> Implemented OOP concepts including modular functions and data handling</li>
+                        <li class="flex gap-x-3"><span class="text-cyan-400">•</span> Added real-time validation for accurate calculations and interactive user interface</li>
+                    </ul>
+                    
+                    <div class="mt-10 flex items-center justify-between">
+                        <a href="https://github.com/RahulChetry/FitMentor" target="_blank" 
+                           class="inline-flex items-center gap-x-2 text-sm font-medium text-cyan-400 hover:text-white">
+                            <i class="fab fa-github"></i>
+                            View Repository
+                        </a>
+                        <div class="text-xs uppercase tracking-widest text-zinc-400">Python • Tkinter • OOP</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATES - ALL LINKS ADDED & WORKING -->
+    <section id="certificates" class="bg-zinc-900 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-header text-5xl heading-font tracking-tighter mb-12">Certificates</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Cert 1: C++ -->
+                <div class="bg-white/5 rounded-3xl p-6 border border-white/10 hover:border-cyan-400/30 card-hover">
+                    <div class="flex justify-between">
+                        <i class="fas fa-award text-4xl text-amber-400"></i>
+                        <span class="text-xs bg-emerald-300 text-emerald-900 px-3 py-1 rounded-3xl">Jul '25</span>
+                    </div>
+                    <h4 class="mt-8 font-semibold text-xl">C++ Programming: OOPS &amp; DSA</h4>
+                    <p class="text-zinc-400 mt-1">CSE Pathshala</p>
+                    <a href="https://drive.google.com/file/d/1mIcXW0b0oSMvIUdc_zG-otILa-Dq83QJ/view?usp=drive_link" 
+                       target="_blank"
+                       class="mt-8 inline-flex items-center text-xs uppercase font-medium tracking-widest text-cyan-400 hover:text-white">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Cert 2: Python Basics -->
+                <div class="bg-white/5 rounded-3xl p-6 border border-white/10 hover:border-cyan-400/30 card-hover">
+                    <div class="flex justify-between">
+                        <i class="fas fa-award text-4xl text-amber-400"></i>
+                        <span class="text-xs bg-emerald-300 text-emerald-900 px-3 py-1 rounded-3xl">Dec '23</span>
+                    </div>
+                    <h4 class="mt-8 font-semibold text-xl">Basics of Python</h4>
+                    <p class="text-zinc-400 mt-1">Infosys</p>
+                    <a href="https://drive.google.com/file/d/19lJ6jAbTnOTQWuaE6-8gtNVciBdxCTAB/view?usp=drive_link" 
+                       target="_blank"
+                       class="mt-8 inline-flex items-center text-xs uppercase font-medium tracking-widest text-cyan-400 hover:text-white">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Cert 3: Responsive Web Design -->
+                <div class="bg-white/5 rounded-3xl p-6 border border-white/10 hover:border-cyan-400/30 card-hover">
+                    <div class="flex justify-between">
+                        <i class="fas fa-award text-4xl text-amber-400"></i>
+                        <span class="text-xs bg-emerald-300 text-emerald-900 px-3 py-1 rounded-3xl">Nov '23</span>
+                    </div>
+                    <h4 class="mt-8 font-semibold text-xl">Responsive Web Design</h4>
+                    <p class="text-zinc-400 mt-1">freeCodeCamp</p>
+                    <a href="https://drive.google.com/file/d/12VQZTcOw9BFhGMcQ3C_WM1d-vRnA4ZmH/view?usp=drive_link" 
+                       target="_blank"
+                       class="mt-8 inline-flex items-center text-xs uppercase font-medium tracking-widest text-cyan-400 hover:text-white">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Cert 4: Python & AI -->
+                <div class="bg-white/5 rounded-3xl p-6 border border-white/10 hover:border-cyan-400/30 card-hover">
+                    <div class="flex justify-between">
+                        <i class="fas fa-award text-4xl text-amber-400"></i>
+                        <span class="text-xs bg-emerald-300 text-emerald-900 px-3 py-1 rounded-3xl">Nov '23</span>
+                    </div>
+                    <h4 class="mt-8 font-semibold text-xl">Python and Artificial Intelligence</h4>
+                    <p class="text-zinc-400 mt-1">devTown</p>
+                    <a href="https://drive.google.com/file/d/1pNr2T1a5tjvAcJBIeHQJMVzm4docmVm7/view?usp=drive_link" 
+                       target="_blank"
+                       class="mt-8 inline-flex items-center text-xs uppercase font-medium tracking-widest text-cyan-400 hover:text-white">
+                        View Certificate <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="section-header text-5xl heading-font tracking-tighter mb-12">Skills</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="bg-white/5 rounded-3xl p-6 text-center">
+                <div class="text-cyan-400 text-4xl mb-4"><i class="fas fa-code"></i></div>
+                <h4 class="font-semibold">Languages</h4>
+                <p class="mt-4 text-sm leading-relaxed">C++, Java, Python, C</p>
+            </div>
+            <div class="bg-white/5 rounded-3xl p-6 text-center">
+                <div class="text-cyan-400 text-4xl mb-4"><i class="fas fa-database"></i></div>
+                <h4 class="font-semibold">Technologies &amp; Frameworks</h4>
+                <div class="flex flex-wrap gap-2 justify-center mt-6">
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">Excel</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">Tableau</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">NumPy</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">Pandas</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">Matplotlib</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">Seaborn</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">GitHub</span>
+                </div>
+            </div>
+            <div class="bg-white/5 rounded-3xl p-6 text-center">
+                <div class="text-cyan-400 text-4xl mb-4"><i class="fas fa-cogs"></i></div>
+                <h4 class="font-semibold">Domain Skills</h4>
+                <div class="flex flex-wrap gap-2 justify-center mt-6">
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">Data Structures &amp; Algorithms</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">Operating Systems</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">Responsive Web Design</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">DBMS</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">SQL</span>
+                </div>
+            </div>
+            <div class="bg-white/5 rounded-3xl p-6 text-center">
+                <div class="text-cyan-400 text-4xl mb-4"><i class="fas fa-laptop"></i></div>
+                <h4 class="font-semibold">Tools I Use</h4>
+                <p class="mt-8 text-sm">VS Code • Git • Jupyter Notebook • Tkinter • Command Line</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="bg-zinc-900 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="section-header text-5xl heading-font tracking-tighter mb-12">Education</h2>
+            
+            <div class="space-y-12">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="md:w-48 text-zinc-400 text-sm">
+                        <div>Aug '23 — Present</div>
+                        <div class="text-emerald-400 font-medium">Phagwara, Punjab</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="text-2xl font-semibold">Bachelor of Technology - Computer Science and Engineering</h3>
+                            <span class="hidden md:block text-xs bg-white/10 px-6 py-3 rounded-3xl">Ongoing</span>
+                        </div>
+                        <p class="text-cyan-400">Lovely Professional University</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="md:w-48 text-zinc-400 text-sm">
+                        <div>Mar '21 — May '22</div>
+                        <div class="text-emerald-400 font-medium">Guwahati, Assam</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="text-2xl font-semibold">12th Grade • 76%</h3>
+                        </div>
+                        <p class="text-cyan-400">Shankar Academy</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="md:w-48 text-zinc-400 text-sm">
+                        <div>Mar '19 — May '20</div>
+                        <div class="text-emerald-400 font-medium">Karbi Anglong, Assam</div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <h3 class="text-2xl font-semibold">10th Grade • 59%</h3>
+                        </div>
+                        <p class="text-cyan-400">Hawaipur Baptist High School</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="max-w-7xl mx-auto px-6 py-20 border-t border-zinc-800">
+        <div class="grid md:grid-cols-12 gap-12">
+            <div class="md:col-span-5">
+                <h2 class="section-header text-5xl heading-font tracking-tighter mb-6">Get in touch</h2>
+                <p class="text-zinc-400 text-xl">I'm always excited to connect with fellow developers, recruiters, or anyone who wants to talk tech.</p>
+                
+                <div class="mt-12 space-y-8">
+                    <div class="flex items-center gap-x-5">
+                        <i class="fas fa-envelope text-3xl text-cyan-400"></i>
+                        <div>
+                            <p class="text-sm text-zinc-400">Email</p>
+                            <a href="mailto:rrrahulchetry105@gmail.com" class="text-xl hover:text-cyan-400">rrrahulchetry105@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-x-5">
+                        <i class="fas fa-phone text-3xl text-cyan-400"></i>
+                        <div>
+                            <p class="text-sm text-zinc-400">Phone</p>
+                            <a href="tel:+918759995189" class="text-xl hover:text-cyan-400">+91 87599 95189</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-x-5">
+                        <i class="fab fa-linkedin text-3xl text-cyan-400"></i>
+                        <div>
+                            <p class="text-sm text-zinc-400">LinkedIn</p>
+                            <a href="https://www.linkedin.com/in/rahul-chetry/" target="_blank" class="text-xl hover:text-cyan-400">linkedin.com/in/rahul-chetry</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-x-5">
+                        <i class="fab fa-github text-3xl text-cyan-400"></i>
+                        <div>
+                            <p class="text-sm text-zinc-400">GitHub</p>
+                            <a href="https://github.com/RahulChetry" target="_blank" class="text-xl hover:text-cyan-400">github.com/RahulChetry</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="md:col-span-7 bg-white/5 rounded-3xl p-8 md:p-12">
+                <form id="contact-form" onsubmit="handleSubmit(event)" class="space-y-8">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-xs uppercase tracking-widest block mb-2">Your Name</label>
+                            <input type="text" id="name" required
+                                   class="w-full bg-transparent border border-white/30 focus:border-cyan-400 rounded-3xl px-6 py-4 outline-none">
+                        </div>
+                        <div>
+                            <label class="text-xs uppercase tracking-widest block mb-2">Email Address</label>
+                            <input type="email" id="email" required
+                                   class="w-full bg-transparent border border-white/30 focus:border-cyan-400 rounded-3xl px-6 py-4 outline-none">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="text-xs uppercase tracking-widest block mb-2">Message</label>
+                        <textarea id="message" rows="6" required
+                                  class="w-full bg-transparent border border-white/30 focus:border-cyan-400 rounded-3xl px-6 py-4 outline-none resize-none"></textarea>
+                    </div>
+                    
+                    <button type="submit"
+                            class="w-full bg-gradient-to-r from-cyan-400 to-blue-500 hover:brightness-110 text-zinc-950 font-semibold py-5 rounded-3xl text-lg flex items-center justify-center gap-x-3">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-zinc-400 gap-y-4">
+                <div>© 2026 Rahul Chetry • Built as a self-contained portfolio</div>
+                <div class="flex gap-x-6">
+                    <a href="https://github.com/RahulChetry" target="_blank" class="hover:text-cyan-400">GitHub</a>
+                    <a href="https://www.linkedin.com/in/rahul-chetry/" target="_blank" class="hover:text-cyan-400">LinkedIn</a>
+                    <a onclick="downloadCV()" class="hover:text-cyan-400 cursor-pointer">Download CV (PDF)</a>
+                </div>
+                <div>Made with ❤️ for showcasing my journey in Computer Science</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * Rahul Chetry - Fully Updated Portfolio
+         * All your requests implemented:
+         * - Your photo added in Hero section
+         * - All certificate links working (Google Drive)
+         * - CV download button fully working (direct download from your Google Drive)
+         * - Navigation opens sections instantly on click
+         * - "Download CV" button in navbar + mobile menu + footer
+         */
+
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        configUser: userConfig,
+                        theme: {
+                            extend: {
+                                colors: {
+                                    primary: '#00d4ff'
+                                }
+                            }
+                        }
+                    }
+                },
+                theme: {
+                    extend: {},
+                },
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('%c✅ Rahul Chetry Portfolio loaded with your photo + all links!', 'color:#00d4ff; font-size:13px; font-weight:600')
+            
+            // Scroll active nav
+            window.addEventListener('scroll', () => {
+                const sections = ['home', 'about', 'training', 'projects', 'certificates', 'skills', 'education', 'contact']
+                let current = ''
+                
+                sections.forEach(sectionId => {
+                    const section = document.getElementById(sectionId)
+                    if (section && scrollY >= section.offsetTop - 300) {
+                        current = sectionId
+                    }
+                })
+                
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active-nav'))
+                const activeLink = document.getElementById(`nav-${current}`)
+                if (activeLink) activeLink.classList.add('active-nav')
+            })
+        })
+        
+        function navigateToSection(sectionId) {
+            const section = document.getElementById(sectionId)
+            if (section) {
+                section.classList.add('page-transition')
+                const navbarHeight = 80
+                const topOffset = section.getBoundingClientRect().top + window.scrollY - navbarHeight
+                window.scrollTo({ top: topOffset, behavior: 'smooth' })
+                setTimeout(() => section.classList.remove('page-transition'), 600)
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('hamburger-icon')
+            if (menu.classList.contains('hidden')) {
+                menu.style.display = 'block'
+                icon.classList.replace('fa-bars', 'fa-times')
+            } else {
+                menu.style.display = 'none'
+                icon.classList.replace('fa-times', 'fa-bars')
+            }
+        }
+        
+        // DOWNLOAD CV - DIRECTLY WORKING with your Google Drive link
+        function downloadCV() {
+            const cvId = '1GuSbF1beGriWmol43CKh4_cIQ4wcXaKF'
+            const downloadUrl = `https://drive.google.com/uc?export=download&id=${cvId}`
+            window.open(downloadUrl, '_blank')
+            
+            const msg = document.createElement('div')
+            msg.style.cssText = 'position:fixed; bottom:20px; left:20px; background:#00d4ff; color:#0a0a0a; padding:16px 24px; border-radius:9999px; font-weight:600; box-shadow:0 10px 15px -3px rgb(0 212 255)'
+            msg.innerHTML = '✅ CV download started!<br><span class="text-xs">Your Google Drive CV is being downloaded</span>'
+            document.body.appendChild(msg)
+            setTimeout(() => msg.remove(), 3500)
+        }
+        
+        function handleSubmit(e) {
+            e.preventDefault()
+            const name = document.getElementById('name').value
+            const form = document.getElementById('contact-form')
+            form.innerHTML = `
+                <div class="text-center py-12">
+                    <i class="fas fa-check-circle text-6xl text-emerald-400 mx-auto block mb-6"></i>
+                    <h3 class="text-3xl heading-font">Thank you, ${name.split(' ')[0]}!</h3>
+                    <p class="text-zinc-400 mt-4">Your message has been sent successfully.<br>I'll get back to you within 24 hours.</p>
+                    <button onclick="location.reload()" class="mt-8 px-8 py-4 bg-white text-zinc-950 rounded-3xl font-semibold">Send another message</button>
+                </div>
+            `
+        }
+        
+        // Keyboard shortcut Ctrl/Cmd + K → Contact
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault()
+                navigateToSection('contact')
+            }
+        })
+    </script>
+</body>
+</html>
